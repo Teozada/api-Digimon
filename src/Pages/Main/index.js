@@ -1,10 +1,27 @@
 import React,{useEffect,useState} from 'react'
 import {Link} from 'react-router-dom'
-import {MainStyle} from './style'
+import {MainStyle,MainInput} from './style'
 import api from '../../services/api'
+import { MdSearch } from 'react-icons/md'
 
 export default function Main(){
   const[digimons,setDigimons] = useState([])
+  const[resultText,setResultText] = useState('')
+  const[resultArray,setResultArray] = useState([])
+
+  useEffect(()=>{
+    const result = digimons.filter(
+      digimon=>digimon.name.toLowerCase().includes(resultText)
+    )
+
+      resultText === '' ? setResultArray(digimons) : setResultArray(result)
+
+    setResultArray(result)
+  },[resultText])
+
+  useEffect(()=>{
+    resultText === '' && setResultArray(digimons)
+  })
 
   useEffect(()=>{
     async function loadDigimons(){
@@ -21,13 +38,24 @@ export default function Main(){
 
   return(
    <MainStyle>
-     <img src="https://i.pinimg.com/originals/ca/5b/a7/ca5ba7d121989a03a9e22518a3ccaab1.png"/>
+
+     <MainInput>
+
+      <MdSearch/>
+
+     <input 
+      value={resultText}
+      onChange={e=>setResultText(e.target.value)}  
+      placeholder="Digite o pokemon"  
+     />
+
+      </MainInput>
+
      <section>
-      {digimons.map(item=>
+      {resultArray.map(item=>
       <Link to={`/${item.name}`}>
         <div>
            <img src={item.img} />
-           <label>{item.name}</label>
          </div>
       </Link>
         )}

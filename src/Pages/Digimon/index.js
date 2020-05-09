@@ -1,7 +1,8 @@
 import React,{useEffect,useState} from 'react'
-import {DigimonStyle} from './style'
+import {DigimonStyle,DigimonContainer} from './style'
 import {Link} from 'react-router-dom'
 import api from '../../services/api'
+import { MdArrowBack } from 'react-icons/md'
 
 
 export default function Digimon({match}){
@@ -21,17 +22,19 @@ export default function Digimon({match}){
     <DigimonStyle>
 
       <Link to='/main'>
-        <img src={'https://i.pinimg.com/originals/ca/5b/a7/ca5ba7d121989a03a9e22518a3ccaab1.png'} />      
+        <MdArrowBack/>      
       </Link>
 
       {digimon !== null &&(       
-        <div>
+        <DigimonContainer>
 
           <img src={digimon.img}/>
+          <div>
           <label>Name:<span>{digimon.name}</span></label>
           <label>Training:<span>{digimon.level}</span></label>
+          </div>
 
-        </div>
+        </DigimonContainer>
       )}
     </DigimonStyle>
   )
