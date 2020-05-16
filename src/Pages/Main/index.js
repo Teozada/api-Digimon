@@ -46,7 +46,7 @@ export default function Main(){
      <input 
       value={resultText}
       onChange={e=>setResultText(e.target.value)}  
-      placeholder="Digite o pokemon"  
+      placeholder="Digite o Digimon"  
      />
 
       </MainInput>
